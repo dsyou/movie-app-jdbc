@@ -18,16 +18,16 @@ class MovieContentController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MovieContent getMovie(@PathVariable String id) {
+    public MovieView getMovie(@PathVariable String id) {
         log.info("Accessing movie by id: {}", id);
         return repository.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<MovieContent> getMovies() {
+    public List<MovieView> getMovies() {
         log.info("Accessing all movies");
-        return (List<MovieContent>) repository.findAll();
+        return (List<MovieView>) repository.findAll();
     }
 
 }

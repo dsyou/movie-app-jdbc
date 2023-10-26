@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.dsyou.movierating.movie.application.command.*;
-import pl.dsyou.movierating.rating.application.command.RateCreationCmd;
 import pl.dsyou.movierating.rating.application.command.RateCreationHandler;
 
 @RestController
@@ -17,7 +16,6 @@ class MoviesController {
     private final EditHandler editHandler;
     private final DeleteHandler deleteHandler;
 
-    private final RateCreationHandler additionHandler;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,12 +33,6 @@ class MoviesController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteMovie(@PathVariable("id") String id) {
         deleteHandler.handle(new DeleteCmd(id));
-    }
-
-    @PostMapping("{id}/ranks")
-    @ResponseStatus(HttpStatus.OK)
-    void addMovieRank(@RequestBody @Valid RateCreationCmd additionCmd) {
-        additionHandler.handle(additionCmd);
     }
 
 }

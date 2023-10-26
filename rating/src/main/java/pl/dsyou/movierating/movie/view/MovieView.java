@@ -8,7 +8,7 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-class MovieContent {
+class MovieView {
     @Id
     private long id;
     private String uuid;

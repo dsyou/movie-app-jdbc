@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dsyou.handler.CmdHandler;
+import pl.dsyou.command.CmdHandler;
 import pl.dsyou.movierating.movie.domain.MovieRepository;
 import pl.dsyou.movierating.rating.domain.Rate;
 import pl.dsyou.movierating.rating.domain.RateRepository;
+import pl.dsyou.result.Empty;
+import pl.dsyou.result.Result;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,21 +19,24 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class RateCreationHandler implements CmdHandler<RateCreationCmd> {
+public class RateCreationHandler implements CmdHandler<RateCreationCmd, Empty> {
     private final RateRepository ratingRepository;
     private final MovieRepository movieRepository;
 
     @Override
-    public void handle(RateCreationCmd cmd) {
+    public Result<Empty> handle(RateCreationCmd cmd) {
         final String movieUuid = cmd.getMovieId();
-        // Return Failure Succes ?
-        long movieId = movieRepository.findBy(movieUuid).get().getId();
+        movieRepository.findBy(movieUuid)
+                .map(movie -> {
+                    long movieId = movie.getSnapshot().getId();
+                    log.info("Created movie rating with correlation to movie uuid: {}", movieId);
 
-        log.info("Created movie rank with correlation movie id: {}", movieId);
+                    Rate rate = new Rate(movieId);
+                    ratingRepository.save(rate);
+                    return Result.success();
+                }); // todo dsyou ...
 
-        Rate rate = new Rate(movieId);
-
-        ratingRepository.save(rate);
+        return Result.failure();
     }
 
     private float countAverageOfMovieRanks(List<Float> ranks) {

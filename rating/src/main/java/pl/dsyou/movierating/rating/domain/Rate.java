@@ -3,10 +3,18 @@ package pl.dsyou.movierating.rating.domain;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.data.relational.core.mapping.Table;
+import pl.dsyou.domaindrivendesign.annotation.AggregateRoot;
+import pl.dsyou.domaindrivendesign.entity.AggregateRootAbstract;
 import pl.dsyou.movierating.movie.domain.Movie;
+import pl.dsyou.movierating.rating.infrastructure.persistence.RatingTableNames;
 
-@EqualsAndHashCode
-public class Rate {
+import static pl.dsyou.movierating.rating.infrastructure.persistence.RatingTableNames.RATE;
+
+@AggregateRoot
+@Table(RATE)
+@EqualsAndHashCode(callSuper = false)
+public class Rate extends AggregateRootAbstract {
     @Id
     private long id;
 

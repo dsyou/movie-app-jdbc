@@ -2,12 +2,13 @@ package pl.dsyou;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 @SpringBootApplication
-public class TemplateApplication {
-
+@EnableJdbcRepositories
+public class MovieApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(TemplateApplication.class, args);
+		SpringApplication.run(MovieApplication.class, args);
 	}
-
 }
+
