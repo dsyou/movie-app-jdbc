@@ -21,7 +21,7 @@ public class Rate extends AggregateRootAbstract {
     private AggregateReference<Movie, Long> movie;
     private float score; // todo BigDecimal
 
-    public Rate(Long movieId) {
+    public Rate(long movieId) {
         this.movie = AggregateReference.to(movieId);
         this.score = 0.00f;
     }

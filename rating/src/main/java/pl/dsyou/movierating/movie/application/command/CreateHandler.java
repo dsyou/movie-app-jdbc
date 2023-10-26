@@ -1,6 +1,6 @@
 package pl.dsyou.movierating.movie.application.command;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.command.CmdHandler;
@@ -12,16 +12,18 @@ import pl.dsyou.result.Result;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CreateHandler implements CmdHandler<CreateCmd, Empty> {
 
     private final MovieRepository repository;
 
     @Override
     public Result<Empty> handle(CreateCmd cmd) {
-        Movie movie = MovieFactory.of(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
-        repository.save(movie);
-        // event raise
-        return null;
+        if (repository.notExistsByTitle(cmd.getTitle())) {
+            Movie movie = MovieFactory.of(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
+            repository.save(movie);
+            return Result.success();
+        }
+        return Result.failure();
     }
 }

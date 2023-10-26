@@ -31,6 +31,10 @@ public class Movie extends AggregateRootAbstract {
         this.description = new Description(title, genre, productionDate);
     }
 
+    public void updateDescription(String title, String genre, Date productionDate){
+        this.description = new Description(title, genre, productionDate);
+    }
+
     public MovieSnapshot getSnapshot(){
         return new MovieSnapshot(
                 this.id,

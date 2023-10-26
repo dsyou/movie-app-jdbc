@@ -5,7 +5,7 @@ import lombok.Value;
 import java.util.Date;
 
 @Value
-class Description {
+public class Description {
     String title;
     String genre;
     Date productionDate;

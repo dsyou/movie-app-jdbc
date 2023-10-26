@@ -11,4 +11,8 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     void deleteBy(String uuid);
 
     Optional<Movie> findBy(String uuid);
+
+    boolean existsByUuid(String uuid);
+
+    boolean notExistsByTitle(String title);
 }

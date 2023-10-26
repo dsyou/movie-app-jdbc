@@ -16,15 +16,21 @@ import pl.dsyou.result.Result;
 @Transactional
 @AllArgsConstructor
 public class EditHandler implements CmdHandler<EditCmd, Empty> {
+
     private final MovieRepository repository;
 
     @Override
-    public Result<Empty> handle(EditCmd command) {
-        log.info("Editing movie with id:{}", command.getUuid());
-        Movie movie = repository.findBy(command.getUuid()).
-                orElseThrow(() -> new MovieNotFoundException(command.getUuid()));
+    public Result<Empty> handle(EditCmd cmd) {
+        String movieUuid = cmd.getMovieUuid();
+        if (repository.existsByUuid(movieUuid)) {
+            log.info("Editing movie with id:{}", movieUuid);
+            Movie movie = repository.findBy(movieUuid)
+                    .orElseThrow(() -> new MovieNotFoundException(movieUuid));
+            movie.updateDescription(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
+            repository.save(movie);
+            return Result.success();
+        }
 
-        repository.save(movie);
-        return null;
+        return Result.failure();
     }
 }

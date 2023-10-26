@@ -1,6 +1,7 @@
 package pl.dsyou.movierating.movie.application.command;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,17 +13,21 @@ import pl.dsyou.result.Result;
 @Slf4j
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeleteHandler implements CmdHandler<DeleteCmd, Empty> {
 
     private final MovieRepository repository;
 
     @Override
     public Result<Empty> handle(DeleteCmd cmd) {
-        log.info("Deleting movie with uuid:{}", cmd.getMovieId());
-        // co jak nie ma uuid ?
-        repository.deleteBy(cmd.getMovieId());
-
-        return null;
+        String movieUuid = cmd.getMovieUuid();
+        if (repository.existsByUuid(cmd.getMovieUuid())) {
+            log.info("Deleting movie with uuid: {}", movieUuid);
+            repository.deleteBy(movieUuid);
+            // todo dsyou delete ratings
+            return Result.success();
+        }
+        log.warn("Deleting movie doesn't exists uuid: {}", movieUuid);
+        return Result.failure();
     }
 }

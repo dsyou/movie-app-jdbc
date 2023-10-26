@@ -8,7 +8,7 @@ import pl.dsyou.command.CmdHandler;
 import pl.dsyou.movierating.movie.domain.MovieRepository;
 import pl.dsyou.movierating.rating.domain.Rate;
 import pl.dsyou.movierating.rating.domain.RateRepository;
-import pl.dsyou.result.Empty;
+import pl.dsyou.result.Body;
 import pl.dsyou.result.Result;
 
 import java.math.BigDecimal;
@@ -19,14 +19,14 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class RateCreationHandler implements CmdHandler<RateCreationCmd, Empty> {
+public class RateCreationHandler implements CmdHandler<RateCreationCmd, Body> {
     private final RateRepository ratingRepository;
     private final MovieRepository movieRepository;
 
     @Override
-    public Result<Empty> handle(RateCreationCmd cmd) {
+    public Result<Body> handle(RateCreationCmd cmd) {
         final String movieUuid = cmd.getMovieId();
-        movieRepository.findBy(movieUuid)
+        return movieRepository.findBy(movieUuid)
                 .map(movie -> {
                     long movieId = movie.getSnapshot().getId();
                     log.info("Created movie rating with correlation to movie uuid: {}", movieId);
@@ -34,9 +34,8 @@ public class RateCreationHandler implements CmdHandler<RateCreationCmd, Empty> {
                     Rate rate = new Rate(movieId);
                     ratingRepository.save(rate);
                     return Result.success();
-                }); // todo dsyou ...
-
-        return Result.failure();
+                })
+                .orElse(Result.failure());
     }
 
     private float countAverageOfMovieRanks(List<Float> ranks) {
