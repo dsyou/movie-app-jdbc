@@ -1,6 +1,5 @@
 package pl.dsyou.movierating.movie.application.command;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class DeleteHandler implements CmdHandler<DeleteCmd, Empty> {
         if (repository.existsByUuid(cmd.getMovieUuid())) {
             log.info("Deleting movie with uuid: {}", movieUuid);
             repository.deleteBy(movieUuid);
-            // todo dsyou delete ratings
+            // todo dsyou delete whole ratings
             return Result.success();
         }
         log.warn("Deleting movie doesn't exists uuid: {}", movieUuid);

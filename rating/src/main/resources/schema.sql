@@ -10,6 +10,7 @@ CREATE TABLE MOVIE
 CREATE TABLE RATE
 (
     ID              IDENTITY PRIMARY KEY,
+    UUID            VARCHAR(255),
     MOVIE           NUMERIC,
     SCORE           NUMERIC(255)
 );

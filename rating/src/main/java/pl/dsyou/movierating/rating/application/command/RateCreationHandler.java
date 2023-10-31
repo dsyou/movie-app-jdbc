@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.command.CmdHandler;
-import pl.dsyou.movierating.movie.domain.MovieRepository;
 import pl.dsyou.movierating.rating.domain.Rate;
+import pl.dsyou.movierating.rating.domain.RateFactory;
 import pl.dsyou.movierating.rating.domain.RateRepository;
 import pl.dsyou.result.Body;
 import pl.dsyou.result.Result;
@@ -21,23 +21,17 @@ import java.util.List;
 @AllArgsConstructor
 public class RateCreationHandler implements CmdHandler<RateCreationCmd, Body> {
     private final RateRepository ratingRepository;
-    private final MovieRepository movieRepository;
 
     @Override
     public Result<Body> handle(RateCreationCmd cmd) {
-        final String movieUuid = cmd.getMovieId();
-        return movieRepository.findBy(movieUuid)
-                .map(movie -> {
-                    long movieId = movie.getSnapshot().getId();
-                    log.info("Created movie rating with correlation to movie uuid: {}", movieId);
-
-                    Rate rate = new Rate(movieId);
-                    ratingRepository.save(rate);
-                    return Result.success();
-                })
-                .orElse(Result.failure());
+        final long movieId = cmd.getMovieId();
+        Rate rate = RateFactory.of(movieId);
+        ratingRepository.save(rate);
+        log.info("Created movie rating with correlation to movie uuid: {}", movieId);
+        return Result.success();
     }
 
+    // todo dsyou
     private float countAverageOfMovieRanks(List<Float> ranks) {
         float sum = 0;
         for (Float rank : ranks) {
@@ -46,10 +40,12 @@ public class RateCreationHandler implements CmdHandler<RateCreationCmd, Body> {
         return sum / (ranks.size() - 1);
     }
 
+    // todo dsyou
     private float round(float sumOfRanks, int decimalPlace) {
         return BigDecimal.valueOf(sumOfRanks).setScale(decimalPlace, RoundingMode.UP).floatValue();
     }
 
+    // todo dsyou
     private void foo() {
 //       Movie movie = movieRepository.findById(movieId)
 //               .orElseThrow(() -> new MovieNotFoundException(movieId));
