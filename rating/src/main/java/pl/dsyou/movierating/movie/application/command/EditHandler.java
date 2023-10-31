@@ -26,7 +26,7 @@ public class EditHandler implements CmdHandler<EditCmd, Empty> {
             log.info("Editing movie with id:{}", movieUuid);
             Movie movie = repository.findBy(movieUuid)
                     .orElseThrow(() -> new MovieNotFoundException(movieUuid));
-            movie.updateDescription(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
+            movie.createDescription(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
             repository.save(movie);
             return Result.success();
         }

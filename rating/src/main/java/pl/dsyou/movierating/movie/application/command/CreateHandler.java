@@ -19,7 +19,7 @@ public class CreateHandler implements CmdHandler<CreateCmd, Empty> {
 
     @Override
     public Result<Empty> handle(CreateCmd cmd) {
-        if (repository.notExistsByTitle(cmd.getTitle())) {
+        if (repository.notExistsByDescriptionTitle(cmd.getTitle())) {
             Movie movie = MovieFactory.of(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
             repository.save(movie);
             return Result.success();

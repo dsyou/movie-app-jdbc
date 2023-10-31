@@ -17,9 +17,8 @@ class RateController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    void addRankToMovie(@RequestBody RateCreationCmd cmd) {
+    void addRateToMovie(@RequestBody RateCreationCmd cmd) {
         this.creationHandler.handle(cmd);
     }
 
-    // no content
 }

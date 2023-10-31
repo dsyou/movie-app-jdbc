@@ -1,7 +1,6 @@
 package pl.dsyou.movierating.movie.domain;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 import pl.dsyou.domaindrivendesign.annotation.DomainRepository;
 
 import java.util.Optional;
@@ -14,5 +13,9 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     boolean existsByUuid(String uuid);
 
-    boolean notExistsByTitle(String title);
+    boolean existsByDescriptionTitle(String title);
+
+    default boolean notExistsByDescriptionTitle(String title) {
+        return !existsByDescriptionTitle(title);
+    }
 }

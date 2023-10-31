@@ -28,10 +28,10 @@ public class Movie extends AggregateRootAbstract {
           String genre,
           Date productionDate) {
 
-        this.description = new Description(title, genre, productionDate);
+         createDescription(title, genre, productionDate);
     }
 
-    public void updateDescription(String title, String genre, Date productionDate){
+    public void createDescription(String title, String genre, Date productionDate){
         this.description = new Description(title, genre, productionDate);
     }
 
