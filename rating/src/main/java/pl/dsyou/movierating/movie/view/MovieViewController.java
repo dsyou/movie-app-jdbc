@@ -12,9 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("movies")
 @RequiredArgsConstructor
-class MovieContentController {
+class MovieViewController {
 
-    private final MovieContentRepository repository;
+    private final MovieViewRepository repository;
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)

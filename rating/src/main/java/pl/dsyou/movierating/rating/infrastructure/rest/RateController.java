@@ -1,23 +1,21 @@
 package pl.dsyou.movierating.rating.infrastructure.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import pl.dsyou.movierating.rating.application.command.RateCreationCmd;
-import pl.dsyou.movierating.rating.application.command.RateCreationHandler;
+import org.springframework.web.bind.annotation.*;
+import pl.dsyou.movierating.rating.application.command.RateAdditionCmd;
+import pl.dsyou.movierating.rating.application.command.RateAdditionHandler;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
+@RequestMapping("rates")
 @RequiredArgsConstructor
 class RateController {
-    private final RateCreationHandler creationHandler;
+    private final RateAdditionHandler creationHandler;
 
     @PostMapping
     @ResponseStatus(CREATED)
-    void addRateToMovie(@RequestBody RateCreationCmd cmd) {
+    void addRate(@RequestBody RateAdditionCmd cmd) {
         this.creationHandler.handle(cmd);
     }
 

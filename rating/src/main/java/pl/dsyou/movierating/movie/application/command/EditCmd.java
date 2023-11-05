@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import pl.dsyou.command.Command;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Value
@@ -18,5 +19,5 @@ public class EditCmd extends Command {
     @NotBlank
     String genre;
     @NotNull
-    Date productionDate;
+    LocalDate productionDate;
 }

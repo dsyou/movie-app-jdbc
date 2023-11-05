@@ -8,6 +8,8 @@ import org.springframework.data.relational.core.mapping.Table;
 import pl.dsyou.domaindrivendesign.annotation.AggregateRoot;
 import pl.dsyou.domaindrivendesign.entity.AggregateRootAbstract;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static lombok.AccessLevel.PACKAGE;
@@ -26,12 +28,12 @@ public class Movie extends AggregateRootAbstract {
 
     Movie(String title,
           String genre,
-          Date productionDate) {
+          LocalDate productionDate) {
 
          createDescription(title, genre, productionDate);
     }
 
-    public void createDescription(String title, String genre, Date productionDate){
+    public void createDescription(String title, String genre, LocalDate productionDate){
         this.description = new Description(title, genre, productionDate);
     }
 

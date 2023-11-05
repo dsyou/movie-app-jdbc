@@ -18,14 +18,16 @@ public class Rate extends AggregateRootAbstract {
     private long id;
 
     private AggregateReference<Movie, Long> movie;
-    private float score; // todo BigDecimal
+    private float score;
 
     Rate(long movieId) {
         this.movie = AggregateReference.to(movieId);
         this.score = 0.00f;
     }
 
-    public void calculateAvgScore() {
-
+    Rate(long movieId, float score) {
+        this.movie = AggregateReference.to(movieId);
+        this.score = score;
     }
+
 }

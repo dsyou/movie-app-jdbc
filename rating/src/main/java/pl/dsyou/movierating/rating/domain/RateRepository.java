@@ -6,4 +6,5 @@ import pl.dsyou.domaindrivendesign.annotation.DomainRepository;
 
 @DomainRepository
 public interface RateRepository extends CrudRepository<Rate, Long> {
+
 }

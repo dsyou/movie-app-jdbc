@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import pl.dsyou.command.Command;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
@@ -16,6 +16,6 @@ public class CreateCmd extends Command {
     @NotBlank
     String genre;
     @NotNull
-    Date productionDate;
+    LocalDate productionDate;
 }
 

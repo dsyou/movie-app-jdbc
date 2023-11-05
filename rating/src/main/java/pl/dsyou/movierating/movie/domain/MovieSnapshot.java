@@ -2,7 +2,7 @@ package pl.dsyou.movierating.movie.domain;
 
 import lombok.Value;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Value
 public class MovieSnapshot {
@@ -13,6 +13,6 @@ public class MovieSnapshot {
     public static class Description {
         String title;
         String genre;
-        Date productionDate;
+        LocalDate productionDate;
     }
 }
