@@ -1,10 +1,10 @@
 package pl.dsyou.movierating.rating.view;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.dsyou.movierating.movie.view.MovieViewRepository;
+
+import java.math.BigDecimal;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -14,10 +14,13 @@ import static org.springframework.http.HttpStatus.OK;
 class RateViewController {
 
     private final RateViewRepository rateViewRepository;
+    private final MovieViewRepository movieViewRepository;
 
-    @GetMapping
+    @GetMapping("/{movieUuid}")
     @ResponseStatus(OK)
-    public void getRateAvg() {
-
+    public BigDecimal getRateAvg(@PathVariable(name = "movieUuid") String movieUuid) {
+        return movieViewRepository.findByUuid(movieUuid)
+                .map(movie -> rateViewRepository.avgRateToTwoRound(movie.getId()))
+                .orElseThrow();// todo dsyou create Factory exception's
     }
 }

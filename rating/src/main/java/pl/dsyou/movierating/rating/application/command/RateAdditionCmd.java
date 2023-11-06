@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import pl.dsyou.command.Command;
 
+import java.math.BigDecimal;
+
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class RateAdditionCmd extends Command {
@@ -14,5 +16,5 @@ public class RateAdditionCmd extends Command {
     String movieUuid;
     @Min(1)
     @Max(10)
-    float rank;
+    BigDecimal rate;
 }

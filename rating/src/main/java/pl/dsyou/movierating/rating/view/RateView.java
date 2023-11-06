@@ -1,23 +1,23 @@
 package pl.dsyou.movierating.rating.view;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
+import static pl.dsyou.movierating.rating.infrastructure.persistence.RatingTableNames.RATES;
+
+@Table(RATES)
+@Getter
+@AllArgsConstructor
 class RateView {
-
-    @JsonIgnore
     @Id
-    private long id;
-
-    private long movieId;
-    private float score;
-
-    // todo dsyou
-    private float round(float sumOfRanks, int decimalPlace) {
-        return BigDecimal.valueOf(sumOfRanks).setScale(decimalPlace, RoundingMode.UP).floatValue();
-    }
-
+    private final long id;
+    @ReadOnlyProperty
+    private final long movieId;
+    @ReadOnlyProperty
+    private final BigDecimal score;
 }

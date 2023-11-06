@@ -7,7 +7,6 @@ import lombok.Value;
 import pl.dsyou.command.Command;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Value
 @EqualsAndHashCode(callSuper = true)

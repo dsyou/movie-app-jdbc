@@ -11,6 +11,8 @@ import pl.dsyou.movierating.rating.domain.RateRepository;
 import pl.dsyou.result.Empty;
 import pl.dsyou.result.Result;
 
+import java.math.BigDecimal;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -21,13 +23,21 @@ public class RateAdditionHandler implements CmdHandler<RateAdditionCmd, Empty> {
 
     @Override
     public Result<Empty> handle(RateAdditionCmd command) {
-        movieRepository.findByUuid(command.getMovieUuid())
-                .map(movie -> {
-                    Rate rate = RateFactory.of(movie.getId(), command.getRank());
-                    rateRepository.save(rate);
-                    return Result.success();
-                });
+        BigDecimal rateValue = command.getRate();
+        if (isValid(rateValue)) {
+            movieRepository.findByUuid(command.getMovieUuid())
+                    .map(movie -> {
+                        Rate rate = RateFactory.of(movie.getId(), rateValue);
+                        rateRepository.save(rate);
+                        return Result.success();
+                    });
+        }
 
         return Result.failure();
+    }
+
+    private static boolean isValid(BigDecimal value) {
+        BigDecimal remainder = value.remainder(BigDecimal.ONE);
+        return remainder.equals(BigDecimal.ZERO);
     }
 }

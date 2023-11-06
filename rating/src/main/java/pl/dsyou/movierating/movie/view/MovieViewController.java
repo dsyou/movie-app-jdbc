@@ -16,18 +16,19 @@ class MovieViewController {
 
     private final MovieViewRepository repository;
 
-    @GetMapping("{id}")
+    @GetMapping("{uuid}")
     @ResponseStatus(HttpStatus.OK)
-    public MovieView getMovie(@PathVariable String id) {
-        log.info("Accessing movie by id: {}", id);
-        return repository.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
+    public MovieProjection getMovie(@PathVariable String uuid) {
+        log.info("Accessing movie by uuid: {}", uuid);
+        return repository.findProjectionByUuid(uuid)
+                .orElseThrow(() -> new MovieNotFoundException(uuid));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<MovieView> getMovies() {
+    public List<MovieProjection> getMovies() {
         log.info("Accessing all movies");
-        return (List<MovieView>) repository.findAll();
+        return (List<MovieProjection>) repository.findMovieProjectionAll();
     }
 
 }

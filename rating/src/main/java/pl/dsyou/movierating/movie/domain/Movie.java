@@ -9,14 +9,12 @@ import pl.dsyou.domaindrivendesign.annotation.AggregateRoot;
 import pl.dsyou.domaindrivendesign.entity.AggregateRootAbstract;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import static lombok.AccessLevel.PACKAGE;
-import static pl.dsyou.movierating.movie.infrastructure.persistence.MovieTableNames.MOVIE;
+import static pl.dsyou.movierating.movie.infrastructure.persistence.MovieTableNames.MOVIES;
 
 @AggregateRoot
-@Table(MOVIE)
+@Table(MOVIES)
 @NoArgsConstructor(access = PACKAGE)
 @EqualsAndHashCode(callSuper = false)
 public class Movie extends AggregateRootAbstract {
