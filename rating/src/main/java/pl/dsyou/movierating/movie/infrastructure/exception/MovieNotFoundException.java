@@ -1,4 +1,4 @@
-package pl.dsyou.movierating.movie.domain.exception;
+package pl.dsyou.movierating.movie.infrastructure.exception;
 
 import lombok.NonNull;
 import pl.dsyou.exception.ElementNotFoundException;

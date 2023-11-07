@@ -2,6 +2,7 @@ package pl.dsyou.movierating.rating.view;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.dsyou.exception.ElementNotFoundException;
 import pl.dsyou.movierating.movie.view.MovieViewRepository;
 
 import java.math.BigDecimal;
@@ -21,6 +22,6 @@ class RateViewController {
     public BigDecimal getRateAvg(@PathVariable(name = "movieUuid") String movieUuid) {
         return movieViewRepository.findByUuid(movieUuid)
                 .map(movie -> rateViewRepository.avgRateToTwoRound(movie.getId()))
-                .orElseThrow();// todo dsyou create Factory exception's
+                .orElseThrow(() -> new ElementNotFoundException(String.format("Movie with uuid: %s doesn't exists", movieUuid)));
     }
 }

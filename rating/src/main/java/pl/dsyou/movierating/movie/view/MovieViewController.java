@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.dsyou.movierating.movie.domain.exception.MovieNotFoundException;
+import pl.dsyou.movierating.movie.infrastructure.exception.MovieNotFoundException;
 
 import java.util.List;
 

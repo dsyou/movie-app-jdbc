@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.command.CmdHandler;
 import pl.dsyou.movierating.movie.domain.Movie;
 import pl.dsyou.movierating.movie.domain.MovieRepository;
-import pl.dsyou.movierating.movie.domain.exception.MovieNotFoundException;
+import pl.dsyou.movierating.movie.infrastructure.exception.MovieNotFoundException;
 import pl.dsyou.result.Empty;
 import pl.dsyou.result.Result;
 
