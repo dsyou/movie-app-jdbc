@@ -28,6 +28,7 @@ public class EditHandler implements CmdHandler<EditCmd, Empty> {
                     .orElseThrow(() -> new MovieNotFoundException(movieUuid));
             movie.createDescription(cmd.getTitle(), cmd.getGenre(), cmd.getProductionDate());
             repository.save(movie);
+
             return Result.success();
         }
 

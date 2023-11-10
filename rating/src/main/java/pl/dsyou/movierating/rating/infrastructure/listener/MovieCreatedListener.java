@@ -18,6 +18,7 @@ class MovieCreatedListener {
     @EventListener
     void createdMovieMovie(CreatedMovie createdMovie) {
         creationHandler.handle(new RateCreationCmd(createdMovie.getMovieId()));
+
     }
 
 }
