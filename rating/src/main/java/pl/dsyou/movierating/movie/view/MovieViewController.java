@@ -10,7 +10,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("movies")
+@RequestMapping("api/movies")
 @RequiredArgsConstructor
 class MovieViewController {
 
