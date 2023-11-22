@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("rates")
+@RequestMapping("/api/v1/rates")
 @RequiredArgsConstructor
 class RateViewController {
 

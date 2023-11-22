@@ -1,0 +1,53 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="003-insert-init-data" author="dsyou">
+        <insert tableName="MOVIES">
+            <column name="UUID" value="818d40a8-0160-4bf3-963d-81d1cd029cd9"/>
+            <column name="TITLE" value="MATRIX"/>
+            <column name="GENRE" value="Action"/>
+            <column name="PRODUCTION_DATE" value="1999-3-31"/>
+        </insert>
+        <insert tableName="MOVIES">
+            <column name="UUID" value="2b017646-0b7a-4f20-8902-f21346720c48"/>
+            <column name="TITLE" value="Inception"/>
+            <column name="GENRE" value="Comedy"/>
+            <column name="PRODUCTION_DATE" value="2010-07-08"/>
+        </insert>
+        <insert tableName="MOVIES">
+            <column name="UUID" value="16bbebce-e955-4ba5-8923-dca477f9e007"/>
+            <column name="TITLE" value="The Shawshank Redemption"/>
+            <column name="GENRE" value="Drama"/>
+            <column name="PRODUCTION_DATE" value="1994-09-10"/>
+        </insert>
+
+        <!--Matrix movie-->
+        <insert tableName="RATES">
+            <column name="UUID" value="818d40a8-0160-4bf3-963d-81d1cd029cd9"/>
+            <column name="MOVIE"
+                    valueComputed="(SELECT ID FROM MOVIES WHERE UUID = '818d40a8-0160-4bf3-963d-81d1cd029cd9')"/>
+            <column name="SCORE" value="9"/>
+        </insert>
+        <insert tableName="RATES">
+            <column name="UUID" value="fcc244bd-e796-4755-bd75-7c42cfc570f1"/>
+            <column name="MOVIE"
+                    valueComputed="(SELECT ID FROM MOVIES WHERE UUID = '818d40a8-0160-4bf3-963d-81d1cd029cd9')"/>
+            <column name="SCORE" value="10"/>
+        </insert>
+        <!--Inception movie-->
+        <insert tableName="RATES">
+            <column name="UUID" value="c5d93a56-43de-43a0-9a70-7f7c5213aa62"/>
+            <column name="MOVIE"
+                    valueComputed="(SELECT ID FROM MOVIES WHERE UUID = '2b017646-0b7a-4f20-8902-f21346720c48')"/>
+            <column name="SCORE" value="8"/>
+        </insert>
+<!--        &lt;!&ndash;The Shawshank Redemption&ndash;&gt;-->
+<!--        <insert tableName="RATES">-->
+<!--            <column name="UUID" value="8d70a95a-3e49-4c48-8ffb-d97b7666621b"/>-->
+<!--            <column name="MOVIE"-->
+<!--                    valueComputed="(SELECT ID FROM MOVIES WHERE UUID = '16bbebce-e955-4ba5-8923-dca477f9e007')"/>-->
+<!--            <column name="SCORE" value="8"/>-->
+<!--        </insert>-->
+    </changeSet>
+</databaseChangeLog>

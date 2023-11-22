@@ -8,7 +8,7 @@ import pl.dsyou.movierating.rating.application.command.RateAdditionHandler;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("rates")
+@RequestMapping("/api/v1/rates")
 @RequiredArgsConstructor
 class RateController {
     private final RateAdditionHandler creationHandler;
