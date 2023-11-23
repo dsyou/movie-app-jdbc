@@ -7,7 +7,7 @@ import pl.dsyou.movierating.movie.application.command.DeleteCmd;
 import pl.dsyou.movierating.movie.application.command.DeleteHandler;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("api/v1/movies")
 @RequiredArgsConstructor
 class MoviesDeleteController {
 

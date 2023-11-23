@@ -8,7 +8,7 @@ import pl.dsyou.movierating.movie.application.command.EditCmd;
 import pl.dsyou.movierating.movie.application.command.EditHandler;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("api/v1/movies")
 @RequiredArgsConstructor
 class MoviesEditController {
 
