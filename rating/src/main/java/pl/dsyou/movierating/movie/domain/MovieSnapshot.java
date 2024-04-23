@@ -1,18 +1,13 @@
 package pl.dsyou.movierating.movie.domain;
 
-import lombok.Value;
+import pl.dsyou.domaindrivendesign.superclass.DomainSnapshot;
 
 import java.time.LocalDate;
 
-@Value
-public class MovieSnapshot {
-    long id;
-    Description description;
+public interface MovieSnapshot extends DomainSnapshot {
+    String getTitle();
 
-    @Value
-    public static class Description {
-        String title;
-        String genre;
-        LocalDate productionDate;
-    }
+    String getGenre();
+
+    LocalDate getProductionDate();
 }

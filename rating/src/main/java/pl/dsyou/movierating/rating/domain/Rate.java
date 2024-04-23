@@ -5,8 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Table;
 import pl.dsyou.domaindrivendesign.annotation.AggregateRoot;
-import pl.dsyou.domaindrivendesign.entity.AggregateRootAbstract;
+import pl.dsyou.domaindrivendesign.superclass.AggregateRootAbstract;
 import pl.dsyou.movierating.movie.domain.Movie;
+import pl.dsyou.movierating.movie.infrastructure.persistence.jpa.MovieEntity;
 
 import java.math.BigDecimal;
 
@@ -18,7 +19,7 @@ import static pl.dsyou.movierating.rating.infrastructure.persistence.RatingTable
 public class Rate extends AggregateRootAbstract {
     @Id
     private long id;
-    private AggregateReference<Movie, Long> movie;
+    private AggregateReference<MovieEntity, Long> movie;
 
     private BigDecimal score;
 
@@ -31,5 +32,4 @@ public class Rate extends AggregateRootAbstract {
         this.movie = AggregateReference.to(movieId);
         this.score = score;
     }
-
 }

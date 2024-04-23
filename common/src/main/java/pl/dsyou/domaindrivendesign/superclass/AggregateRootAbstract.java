@@ -1,16 +1,24 @@
-package pl.dsyou.domaindrivendesign.entity;
+package pl.dsyou.domaindrivendesign.superclass;
 
+import lombok.Getter;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import pl.dsyou.domaindrivendesign.event.DomainEvent;
 
 import java.util.*;
 
+import static lombok.AccessLevel.PUBLIC;
+
 public abstract class AggregateRootAbstract {
 
+    @Getter(PUBLIC)
     protected String uuid;
 
     private final List<DomainEvent> events = new ArrayList<>();
+
+//    public AggregateRootAbstract() {
+//        this.uuid = UUID.randomUUID().toString();
+//    }
 
     protected void addEvent(DomainEvent domainEvent) {
         this.events.add(domainEvent);

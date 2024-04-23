@@ -13,7 +13,7 @@ import static pl.dsyou.movierating.movie.infrastructure.persistence.MovieTableNa
 @Table(MOVIES)
 @Getter
 @AllArgsConstructor
-public class MovieView {
+class MovieView {
     @Id
     private final long id;
     @ReadOnlyProperty

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @ReadOnlyRepository
-public interface MovieViewRepository extends CrudRepository<MovieView, Long> {
+interface MovieViewRepository extends CrudRepository<MovieView, Long> {
     @Query("SELECT * FROM movies")
     Collection<MovieProjection> findMovieProjectionAll();
 

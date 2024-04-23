@@ -6,15 +6,15 @@ import pl.dsyou.domaindrivendesign.annotation.ReadOnlyRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 @ReadOnlyRepository
 interface RateViewRepository extends CrudRepository<RateView, Long> {
 
-    @Query("SELECT AVG(score) FROM rates WHERE movie = :movieId")
-    BigDecimal avgRate(long movieId);
+    @Query("SELECT AVG(score) FROM rates JOIN movies m WHERE m.uuid = :movieUuid")
+    Optional<BigDecimal> avgRate(String movieUuid);
 
-    default BigDecimal avgRateToTwoRound(long movieId) {
-        BigDecimal avgRate = this.avgRate(movieId);
-        return avgRate.setScale(2, RoundingMode.HALF_UP);
+    default Optional<BigDecimal> avgRateToTwoRound(String movieUuid) {
+        return this.avgRate(movieUuid).map(avgRate -> avgRate.setScale(2, RoundingMode.HALF_UP));
     }
 }

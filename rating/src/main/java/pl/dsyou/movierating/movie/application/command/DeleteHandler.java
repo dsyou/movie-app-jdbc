@@ -26,6 +26,7 @@ public class DeleteHandler implements CmdHandler<DeleteCmd, Empty> {
             // todo dsyou delete whole ratings
             return Result.success();
         }
+
         log.warn("Deleting movie doesn't exists uuid: {}", movieUuid);
         return Result.failure();
     }

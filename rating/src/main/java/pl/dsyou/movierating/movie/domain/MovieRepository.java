@@ -1,15 +1,19 @@
 package pl.dsyou.movierating.movie.domain;
 
-import org.springframework.data.repository.CrudRepository;
 import pl.dsyou.domaindrivendesign.annotation.DomainRepository;
 
 import java.util.Optional;
 
 @DomainRepository
-public interface MovieRepository extends CrudRepository<Movie, Long> {
+public interface MovieRepository {
+
+    Movie save(Movie movie);
+
     void deleteBy(String uuid);
 
     Optional<Movie> findBy(String uuid);
+
+    Optional<Movie> findByUuid(String movieUuid);
 
     boolean existsByUuid(String uuid);
 
@@ -18,4 +22,5 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     default boolean notExistsByDescriptionTitle(String title) {
         return !existsByDescriptionTitle(title);
     }
+
 }
