@@ -13,7 +13,7 @@ public interface MovieRepository {
 
     Optional<Movie> findBy(String uuid);
 
-    Optional<Movie> findByUuid(String movieUuid);
+    Optional<Movie> findMovieByUuid(String movieUuid);
 
     boolean existsByUuid(String uuid);
 

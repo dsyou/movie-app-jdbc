@@ -13,7 +13,7 @@
             <column name="MOVIE" type="NUMERIC">
                 <constraints nullable="false"/>
             </column>
-            <column name="SCORE" type="NUMERIC(255)">
+            <column name="RATE" type="NUMERIC(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

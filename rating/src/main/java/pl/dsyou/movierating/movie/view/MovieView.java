@@ -1,7 +1,9 @@
 package pl.dsyou.movierating.movie.view;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Table;
@@ -12,16 +14,16 @@ import static pl.dsyou.movierating.movie.infrastructure.persistence.MovieTableNa
 
 @Table(MOVIES)
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 class MovieView {
     @Id
-    private final long id;
+    private long id;
     @ReadOnlyProperty
-    private final String uuid;
+    private String uuid;
     @ReadOnlyProperty
-    private final String title;
+    private String title;
     @ReadOnlyProperty
-    private final String genre;
+    private String genre;
     @ReadOnlyProperty
-    private final LocalDate productionDate;
+    private LocalDate productionDate;
 }

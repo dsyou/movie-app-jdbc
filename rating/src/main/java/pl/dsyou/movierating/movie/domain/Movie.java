@@ -19,14 +19,6 @@ public class Movie extends AggregateRootAbstract {
     private long id;
     private Description description;
 
-    Movie(String title,
-          String genre,
-          LocalDate productionDate
-    ) {
-        super();
-        createDescription(title, genre, productionDate);
-    }
-
     public Movie(String uuid,
                  String title,
                  String genre,

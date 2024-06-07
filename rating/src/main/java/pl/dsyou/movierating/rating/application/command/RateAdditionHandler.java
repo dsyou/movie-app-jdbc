@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.command.CmdHandler;
+import pl.dsyou.movierating.movie.domain.Movie;
 import pl.dsyou.movierating.movie.domain.MovieRepository;
 import pl.dsyou.movierating.rating.domain.Rate;
 import pl.dsyou.movierating.rating.domain.RateFactory;
@@ -12,9 +13,10 @@ import pl.dsyou.result.Empty;
 import pl.dsyou.result.Result;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
-@Transactional // todo dj new transactions ?
+@Transactional
 @RequiredArgsConstructor
 public class RateAdditionHandler implements CmdHandler<RateAdditionCmd, Empty> {
 
@@ -24,21 +26,18 @@ public class RateAdditionHandler implements CmdHandler<RateAdditionCmd, Empty> {
     @Override
     public Result<Empty> handle(RateAdditionCmd command) {
         BigDecimal rateValue = command.getRate();
-        if (isValid(rateValue)) {
-            movieRepository.findByUuid(command.getMovieUuid())
-                    .map(movie -> {
-                        Rate rate = RateFactory.of(movie.getSnapshot().getId(), rateValue);
-                        rateRepository.save(rate);
-                        return Result.success();
-                    });
+
+        Optional<Movie> byUuid = movieRepository.findMovieByUuid(command.getMovieUuid());
+        if (byUuid.isEmpty()) {
+            return Result.failure();
         }
 
-        return Result.failure();
-    }
+        Rate rate = RateFactory.of(byUuid.get().getSnapshot().getId());
+        Result<Empty> result = rate.addRate(rateValue);
+        if (result.isSuccess()) {
+            rateRepository.save(rate);
+        }
 
-    // todo dsyou RatePolicy
-    private static boolean isValid(BigDecimal value) {
-        BigDecimal remainder = value.remainder(BigDecimal.ONE);
-        return remainder.equals(BigDecimal.ZERO);
+        return result;
     }
 }

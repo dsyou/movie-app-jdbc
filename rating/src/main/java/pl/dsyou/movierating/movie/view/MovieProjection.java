@@ -2,8 +2,12 @@ package pl.dsyou.movierating.movie.view;
 
 import java.time.LocalDate;
 
-record MovieProjection(String uuid,
-                       String title,
-                       String genre,
-                       LocalDate productionDate) {
+interface MovieProjection {
+    String getUuid();
+
+    String getTitle();
+
+    String getGenre();
+
+    LocalDate getProductionDate();
 }
