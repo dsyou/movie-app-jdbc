@@ -10,6 +10,7 @@ import pl.dsyou.movierating.movie.domain.Movie;
 import pl.dsyou.movierating.movie.domain.MovieFactory;
 import pl.dsyou.movierating.movie.domain.MovieRepository;
 import pl.dsyou.movierating.movie.domain.event.CreatedMovie;
+import pl.dsyou.movierating.movie.infrastructure.audit.MovieAuditPublisher;
 import pl.dsyou.result.Empty;
 import pl.dsyou.result.Result;
 
@@ -21,6 +22,7 @@ public class CreateHandler implements CmdHandler<CreateCmd, Empty> {
 
     private final MovieRepository repository;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final MovieAuditPublisher movieAuditPublisher;
 
     @Override
     public Result<Empty> handle(CreateCmd cmd) {
@@ -31,6 +33,7 @@ public class CreateHandler implements CmdHandler<CreateCmd, Empty> {
                     .getId();
 
             applicationEventPublisher.publishEvent(new CreatedMovie(savedMovieId));
+            movieAuditPublisher.publishAudit(Movie.class, movie.getUuid(), cmd);
             return Result.success();
         }
 

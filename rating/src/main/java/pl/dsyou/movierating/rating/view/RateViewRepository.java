@@ -11,7 +11,7 @@ import java.util.Optional;
 @ReadOnlyRepository
 interface RateViewRepository extends CrudRepository<RateView, Long> {
 
-    @Query("SELECT AVG(score) FROM rates JOIN movies m WHERE m.uuid = :movieUuid")
+    @Query("SELECT AVG(rate) FROM rates JOIN movies m WHERE m.uuid = :movieUuid")
     Optional<BigDecimal> avgRate(String movieUuid);
 
     default Optional<BigDecimal> avgRateToTwoRound(String movieUuid) {

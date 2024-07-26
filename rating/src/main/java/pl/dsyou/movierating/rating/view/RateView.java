@@ -21,5 +21,5 @@ class RateView {
     @ReadOnlyProperty
     private final long movieUuid;
     @ReadOnlyProperty
-    private final BigDecimal score;
+    private final BigDecimal rate;
 }

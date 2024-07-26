@@ -4,4 +4,6 @@
     <include file="changelog/001-create-movies-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/002-create-rates-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/003-insert-init-data.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/004-audit-movies-event-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/005-audit-rates-event-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
